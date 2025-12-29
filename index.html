@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Responsive Music Player</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="player">
+  <img id="cover" src="https://i.imgur.com/8Km9tLL.jpg" alt="Album">
+
+  <h2 id="title">Believer</h2>
+  <p id="artist">Imagine Dragons</p>
+
+  <div class="progress-container" onclick="setProgress(event)">
+    <div class="progress" id="progress"></div>
+  </div>
+
+
+  <div class="controls">
+    <button onclick="prevSong()">⏮</button>
+    <button id="playBtn" class="play" onclick="playPause()">▶</button>
+    <button onclick="nextSong()">⏭</button>
+  </div>
+
+  <audio id="audio"></audio>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
