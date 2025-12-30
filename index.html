@@ -1,33 +1,169 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Responsive Music Player</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Music Player UI</title>
+<style>
+body {
+  background: #111827;
+  color: white;
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+/* PLAYER */
+.player {
+  width: 280px;
+  background: #1f2933;
+  padding: 15px;
+  border-radius: 15px;
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.player img {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+h2 { margin: 10px 0 5px; }
+p { font-size: 14px; opacity: .8; }
+
+.play-btn {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 10px 22px;
+  background: #00ffc8;
+  color: black;
+  border-radius: 20px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* PLAYLIST CONTAINER */
+.playlist-container {
+  width: 600px; /* fixed container width */
+  overflow-x: auto;
+  padding: 10px 0;
+  background: #1f2933;
+  border-radius: 15px;
+  scroll-behavior: smooth;
+}
+
+.playlist-container::-webkit-scrollbar {
+  height: 8px;
+}
+
+.playlist-container::-webkit-scrollbar-thumb {
+  background: #00ffc8;
+  border-radius: 4px;
+}
+
+/* PLAYLIST FLEX */
+.playlist {
+  display: flex;
+  gap: 12px;
+}
+
+/* SONG */
+.song {
+  min-width: 120px;
+  background: #111827;
+  border-radius: 10px;
+  padding: 8px;
+  text-align: center;
+  flex-shrink: 0;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: all 0.2s;
+}
+
+.song img {
+  width: 100px;
+  height: 100px;
+  border-radius: 8px;
+}
+
+.song:hover {
+  background: #00ffc8;
+  color: black;
+}
+</style>
 </head>
 <body>
 
-<div class="player">
-  <img id="cover" src="https://i.imgur.com/8Km9tLL.jpg" alt="Album">
-
-  <h2 id="title">Believer</h2>
-  <p id="artist">Imagine Dragons</p>
-
-  <div class="progress-container" onclick="setProgress(event)">
-    <div class="progress" id="progress"></div>
-  </div>
-
-
-  <div class="controls">
-    <button onclick="prevSong()">⏮</button>
-    <button id="playBtn" class="play" onclick="playPause()">▶</button>
-    <button onclick="nextSong()">⏭</button>
-  </div>
-
-  <audio id="audio"></audio>
+<!-- PLAYER -->
+<div class="player" id="player">
+  <img src="image1.jpg" id="song-img">
+  <h2 id="song-title">Believer</h2>
+  <p id="song-artist">Imagine Dragons</p>
+  <button class="play-btn" id="playBtn">▶ Play</button>
 </div>
 
-<script src="script.js"></script>
+<!-- PLAYLIST -->
+<div class="playlist-container">
+  <div class="playlist">
+    <div class="song" data-title="Believer" data-artist="Imagine Dragons" data-img="image1.jpg">
+      <img src="image1.jpg">
+      <p>Believer</p>
+    </div>
+    <div class="song" data-title="Thunder" data-artist="Imagine Dragons" data-img="image2.jpg">
+      <img src="image2.jpg">
+      <p>Thunder</p>
+    </div>
+    <div class="song" data-title="Enemy" data-artist="Imagine Dragons" data-img="image3.jpg">
+      <img src="image3.jpg">
+      <p>Enemy</p>
+    </div>
+    <div class="song" data-title="Demons" data-artist="Imagine Dragons" data-img="image4.jpg">
+      <img src="image4.jpg">
+      <p>Thangamey</p>
+    </div>
+    <div class="song" data-title="Whatever It Takes" data-artist="Imagine Dragons" data-img="image5.jpg">
+      <img src="image5.jpg">
+      <p>va vennilave</p>
+    </div>
+    <div class="song" data-title="Radioactive" data-artist="Imagine Dragons" data-img="image6.jpg">
+      <img src="image6.jpg">
+      <p>Aarariro</p>
+    </div>
+  </div>
+</div>
+
+<script>
+// Global play/pause
+let playing = false;
+const playBtn = document.getElementById('playBtn');
+playBtn.addEventListener('click', () => {
+  playing = !playing;
+  playBtn.textContent = playing ? '⏸ Pause' : '▶ Play';
+});
+
+// Song switching
+const songs = document.querySelectorAll('.song');
+const songImg = document.getElementById('song-img');
+const songTitle = document.getElementById('song-title');
+const songArtist = document.getElementById('song-artist');
+
+songs.forEach(song => {
+  song.addEventListener('click', () => {
+    songImg.src = song.dataset.img;
+    songTitle.textContent = song.dataset.title;
+    songArtist.textContent = song.dataset.artist;
+    playing = true;
+    playBtn.textContent = '⏸ Pause';
+  });
+});
+</script>
+
 </body>
 </html>
